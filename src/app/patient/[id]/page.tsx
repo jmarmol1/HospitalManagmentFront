@@ -222,7 +222,7 @@ export default function NursePage() {
                       <input
                         type="checkbox"
                         name={sign}
-                        checked={commonSigns[sign]}
+                        checked={commonSigns[sign] as any}
                         onChange={handleChangeCommon}
                         className="form-checkbox h-5 w-5 text-gray-600"
                       />
