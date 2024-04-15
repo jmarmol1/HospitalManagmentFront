@@ -21,10 +21,11 @@ type Patient = {
 
 export default function NursePage() {
   const { data, loading, error } = useQuery(GET_PATIENTS);
-  const patients: Patient[] = data.getAllPatients;
-  
+
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error : {error.message}</p>;
+
+  const patients: Patient[] = data?.getAllPatients ?? [];
   return (
     <main className="flex min-h-screen flex-col bg-gray-300 w-[70%] mx-[15%] p-24">
       <h1 className="text-4xl text-">Nurse</h1>
