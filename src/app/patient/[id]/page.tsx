@@ -57,7 +57,7 @@ export default function NursePage() {
   const { data, loading, error } = useQuery(GET_PATIENT_DETAILS, {
     variables: { patientId: patientId },
     skip: !id,
-    onCompleted: (data) => {
+    onCompleted: (data: any) => {
       if (
         data &&
         data.getPatientDetails &&
@@ -88,20 +88,20 @@ export default function NursePage() {
     },
   ] = useMutation(UPDATE_COMMON_SIGNS);
 
-  const handleChange = (event) => {
+  const handleChange = (event: { target: { name: any; value: any; }; }) => {
     const { name, value } = event.target;
-    setVitalSigns((prev) => ({ ...prev, [name]: value }));
+    setVitalSigns((prev: any) => ({ ...prev, [name]: value }));
   };
 
-  const handleChangeCommon = (event) => {
+  const handleChangeCommon = (event: { target: { name: any; checked: any; }; }) => {
     const { name, checked } = event.target;
-    setCommonSigns((prev) => ({
+    setCommonSigns((prev: any) => ({
       ...prev,
       [name]: checked,
     }));
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: { preventDefault: () => void; }) => {
     event.preventDefault();
     await addVitalSigns({
       variables: {
@@ -119,7 +119,7 @@ export default function NursePage() {
     });
   };
 
-  const handleSubmitCommon = async (event) => {
+  const handleSubmitCommon = async (event: { preventDefault: () => void; }) => {
     event.preventDefault();
     await updateCommonSigns({
       variables: {

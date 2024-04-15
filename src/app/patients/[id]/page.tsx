@@ -2,6 +2,7 @@
 
 import { gql, useMutation, useQuery } from "@apollo/client";
 import { useParams, useRouter } from "next/navigation";
+import { Key } from "react";
 import { useState } from "react";
 
 const GET_PATIENT_DETAILS = gql`
@@ -49,12 +50,12 @@ export default function NursePage() {
     { data: mutationData, loading: mutationLoading, error: mutationError },
   ] = useMutation(ADD_VITAL_SIGNS);
 
-  const handleChange = (event) => {
+  const handleChange = (event: { target: { name: any; value: any; }; }) => {
     const { name, value } = event.target;
-    setVitalSigns((prev) => ({ ...prev, [name]: value }));
+    setVitalSigns((prev: any) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: { preventDefault: () => void; }) => {
     event.preventDefault();
     await addVitalSigns({
       variables: {
@@ -86,7 +87,7 @@ export default function NursePage() {
           <span className="text-xl font-bold">Previous Vital signs:</span>
           <ul className="my-2">
             {data?.getPatientDetails.vitalSigns.length > 0 ? (
-              data?.getPatientDetails.vitalSigns.map((sign, index) => (
+              data?.getPatientDetails.vitalSigns.map((sign: any, index: Key | null | undefined) => (
                 <li key={index} className="my-2">
                   <b>Date:</b> {sign.date} -
                   <b>Temp:</b> {sign.bodyTemperature}°, <b>Heart Rate:</b> {sign.heartRate}{" "}

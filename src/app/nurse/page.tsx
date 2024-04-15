@@ -13,8 +13,15 @@ const GET_PATIENTS = gql`
   }
 `;
 
+type Patient = {
+  _id: string,
+  firstName: string,
+  lastName: string,
+}
+
 export default function NursePage() {
   const { data, loading, error } = useQuery(GET_PATIENTS);
+  const patients: Patient[] = data.getAllPatients;
   
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error : {error.message}</p>;
@@ -27,7 +34,7 @@ export default function NursePage() {
           Clik on a patient to view and add information:
         </span>
         <div className="flex justify-between flex-wrap items-center">
-          {data.getAllPatients.map(({ _id, firstName, lastName }) => (
+          {patients.map(({ _id, firstName, lastName })=> (
             <Link key={_id} href={`/patients/${_id}`} passHref>
               <div className="bg-gray-600 flex my-8 flex-col text-white hover:cursor-pointer rounded-lg p-4">
                 <span>
