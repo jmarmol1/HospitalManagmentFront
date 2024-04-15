@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -102,6 +103,9 @@ export default function RegisterPage() {
           Register
         </button>
       </form>
+      <Link href={'/login'} className="mt-8">
+        <span className="mt-4 text-gray-600">Do you have an account?</span>
+      </Link>
     </div>
   );
 }

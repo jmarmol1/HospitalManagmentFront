@@ -4,6 +4,15 @@ import { gql, useMutation, useQuery } from "@apollo/client";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
+interface CommonSigns {
+  [key: string]: boolean;
+  fever: boolean;
+  cough: boolean;
+  fatigue: boolean;
+  headache: boolean;
+  bodyAche: boolean;
+}
+
 const GET_PATIENT_DETAILS = gql`
   query GetPatient($patientId: ID!) {
     getPatientDetails(patientId: $patientId) {
@@ -46,7 +55,7 @@ export default function NursePage() {
     date: new Date(),
   });
 
-  const [commonSigns, setCommonSigns] = useState({
+  const [commonSigns, setCommonSigns] = useState<CommonSigns>({
     fever: false,
     cough: false,
     fatigue: false,
@@ -64,12 +73,12 @@ export default function NursePage() {
         data.getPatientDetails.commonSigns
       ) {
         setCommonSigns({
-            fever: data.getPatientDetails.commonSigns.fever,
-            cough: data.getPatientDetails.commonSigns.cough,
-            fatigue: data.getPatientDetails.commonSigns.fatigue,
-            headache: data.getPatientDetails.commonSigns.headache,
-            bodyAche: data.getPatientDetails.commonSigns.bodyAche,
-          });
+          fever: data.getPatientDetails.commonSigns.fever,
+          cough: data.getPatientDetails.commonSigns.cough,
+          fatigue: data.getPatientDetails.commonSigns.fatigue,
+          headache: data.getPatientDetails.commonSigns.headache,
+          bodyAche: data.getPatientDetails.commonSigns.bodyAche,
+        });
       }
     },
   });
@@ -88,20 +97,22 @@ export default function NursePage() {
     },
   ] = useMutation(UPDATE_COMMON_SIGNS);
 
-  const handleChange = (event: { target: { name: any; value: any; }; }) => {
+  const handleChange = (event: { target: { name: any; value: any } }) => {
     const { name, value } = event.target;
     setVitalSigns((prev: any) => ({ ...prev, [name]: value }));
   };
 
-  const handleChangeCommon = (event: { target: { name: any; checked: any; }; }) => {
+  const handleChangeCommon = (event: {
+    target: { name: any; checked: any };
+  }) => {
     const { name, checked } = event.target;
-    setCommonSigns((prev: any) => ({
+    setCommonSigns((prev) => ({
       ...prev,
-      [name]: checked,
+      [name as keyof CommonSigns]: checked,
     }));
   };
 
-  const handleSubmit = async (event: { preventDefault: () => void; }) => {
+  const handleSubmit = async (event: { preventDefault: () => void }) => {
     event.preventDefault();
     await addVitalSigns({
       variables: {
@@ -119,7 +130,7 @@ export default function NursePage() {
     });
   };
 
-  const handleSubmitCommon = async (event: { preventDefault: () => void; }) => {
+  const handleSubmitCommon = async (event: { preventDefault: () => void }) => {
     event.preventDefault();
     await updateCommonSigns({
       variables: {
@@ -218,11 +229,14 @@ export default function NursePage() {
               <div className="flex flex-col items-center">
                 {Object.keys(commonSigns).map((sign, index) => {
                   return (
-                    <label key={index} className="inline-flex items-center mt-3">
+                    <label
+                      key={index}
+                      className="inline-flex items-center mt-3"
+                    >
                       <input
                         type="checkbox"
                         name={sign}
-                        checked={commonSigns[sign] as any}
+                        checked={commonSigns[sign]}
                         onChange={handleChangeCommon}
                         className="form-checkbox h-5 w-5 text-gray-600"
                       />
