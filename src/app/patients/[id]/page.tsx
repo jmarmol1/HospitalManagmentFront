@@ -37,7 +37,7 @@ export default function NursePage() {
     heartRate: "",
     bloodPressure: "",
     respiratoryRate: "",
-    date: new Date(),
+    date: "",
   });
 
   const { data, loading, error } = useQuery(GET_PATIENT_DETAILS, {

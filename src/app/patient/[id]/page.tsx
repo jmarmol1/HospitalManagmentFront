@@ -52,7 +52,7 @@ export default function NursePage() {
     heartRate: "",
     bloodPressure: "",
     respiratoryRate: "",
-    date: "",
+    date: new Date(),
   });
 
   const [commonSigns, setCommonSigns] = useState<CommonSigns>({
@@ -126,7 +126,7 @@ export default function NursePage() {
       heartRate: "",
       bloodPressure: "",
       respiratoryRate: "",
-      date: "",
+      date: new Date(),
     });
   };
 
