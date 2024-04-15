@@ -216,9 +216,9 @@ export default function NursePage() {
             <h2 className="text-xl mb-2 text-center">Common signs:</h2>
             <form onSubmit={handleSubmitCommon} className="mt-2">
               <div className="flex flex-col items-center">
-                {Object.keys(commonSigns).map((sign) => {
+                {Object.keys(commonSigns).map((sign, index) => {
                   return (
-                    <label key={sign} className="inline-flex items-center mt-3">
+                    <label key={index} className="inline-flex items-center mt-3">
                       <input
                         type="checkbox"
                         name={sign}
