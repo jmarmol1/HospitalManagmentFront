@@ -29,7 +29,7 @@ export default function NursePage() {
         <div className="flex justify-between flex-wrap items-center">
           {data.getAllPatients.map(({ _id, firstName, lastName }) => (
             <Link key={_id} href={`/patients/${_id}`} passHref>
-              <div className="bg-gray-600 flex flex-col text-white hover:cursor-pointer rounded-lg p-4">
+              <div className="bg-gray-600 flex my-8 flex-col text-white hover:cursor-pointer rounded-lg p-4">
                 <span>
                   <span className=" font-bold">ID:</span> {_id}
                 </span>

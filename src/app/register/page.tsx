@@ -31,7 +31,6 @@ export default function RegisterPage() {
       );
       console;
       const data = await response.json();
-      console.log(data)
 
       if (formData.userType == "patient") router.push(`/patient/${data.user._id}`);
     if (formData.userType == "nurse") router.push("/nurse");
