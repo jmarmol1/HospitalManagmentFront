@@ -19,6 +19,7 @@ export default function LoginPage() {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     try {
+      console.log(formData.userType);
       let apiToFetch =
         formData.userType == "patient"
           ? `${process.env.NEXT_PUBLIC_API_URL!}/api/users/login/patient`
@@ -29,9 +30,8 @@ export default function LoginPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
-      console;
       const data = await response.json();
-      console.log(data)
+      console.log(data);
 
     if (formData.userType == "patient") router.push(`/patient/${data.patient._id}`);
     if (formData.userType == "nurse") router.push("/nurse");
@@ -82,7 +82,7 @@ export default function LoginPage() {
           type="submit"
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full"
         >
-          Register
+          Login
         </button>
       </form>
     </div>
